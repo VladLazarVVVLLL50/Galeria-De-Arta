@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalii Artist</title>
+</head>
+<body>
+<h1>Detalii Artist</h1>
+<p><strong>Nume:</strong> <span th:text="${artist.nume}"></span></p>
+<p><strong>Prenume:</strong> <span th:text="${artist.prenume}"></span></p>
+<p><strong>Data Nașterii:</strong> <span th:text="${#dates.format(artist.dataNastere, 'yyyy-MM-dd')}"></span></p>
+<p><strong>Naționalitate:</strong> <span th:text="${artist.nationalitate}"></span></p>
+<p><strong>Biografie:</strong> <span th:text="${artist.biografie}"></span></p>
+
+<h2>Opere de Artă</h2>
+<ul>
+    <li th:each="opera : ${opere}" th:text="${opera.titlu}"></li>
+</ul>
+
+<a th:href="@{/artists}">Înapoi la lista artiștilor</a>
+</body>
+</html>

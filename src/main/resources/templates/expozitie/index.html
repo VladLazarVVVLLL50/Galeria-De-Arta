@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista Expozițiilor</title>
+</head>
+<body>
+<h1>Lista Expozițiilor</h1>
+<a href="/expozitii/new">Adaugă o expoziție nouă</a>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nume</th>
+        <th>Descriere</th>
+        <th>Data Început</th>
+        <th>Data Sfârșit</th>
+        <th>Locație</th>
+        <th>Curator</th>
+        <th>Acțiuni</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="expozitie : ${expozitii}">
+        <td th:text="${expozitie.expozitieID}"></td>
+        <td th:text="${expozitie.nume}"></td>
+        <td th:text="${expozitie.descriere}"></td>
+        <td th:text="${expozitie.dataInceput}"></td>
+        <td th:text="${expozitie.dataSfarsit}"></td>
+        <td th:text="${expozitie.locatieID}"></td>
+        <td th:text="${expozitie.curatorID}"></td>
+        <td>
+            <a th:href="@{/expozitii/edit/{id}(id=${expozitie.expozitieID})}">Editează</a>
+            <a th:href="@{/expozitii/delete/{id}(id=${expozitie.expozitieID})}" onclick="return confirm('Ești sigur că vrei să ștergi această expoziție?')">Șterge</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

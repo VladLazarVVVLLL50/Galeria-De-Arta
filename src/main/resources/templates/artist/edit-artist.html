@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Editează Artist</title>
+</head>
+<body>
+<h1>Editează Artist</h1>
+<form action="#" th:action="@{/artists/update/{id}(id=${artist.artistID})}" th:object="${artist}" method="post">
+  <label for="nume">Nume:</label>
+  <input type="text" id="nume" th:field="*{nume}" /><br/>
+
+  <label for="prenume">Prenume:</label>
+  <input type="text" id="prenume" th:field="*{prenume}" /><br/>
+
+  <label for="dataNastere">Data Nașterii:</label>
+  <input type="date" id="dataNastere" th:field="*{dataNastere}" /><br/>
+
+  <label for="nationalitate">Naționalitate:</label>
+  <input type="text" id="nationalitate" th:field="*{nationalitate}" /><br/>
+
+  <label for="biografie">Biografie:</label>
+  <textarea id="biografie" th:field="*{biografie}"></textarea><br/>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" th:field="*{email}" /><br/>
+
+  <label for="numarTelefon">Număr Telefon:</label>
+  <input type="text" id="numarTelefon" th:field="*{numarTelefon}" /><br/>
+
+  <label for="parola">Parola:</label>
+  <input type="password" id="parola" th:field="*{parola}" /><br/>
+
+  <button type="submit">Actualizează</button>
+</form>
+<a href="/artists">Înapoi la listă</a>
+</body>
+</html>

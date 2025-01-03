@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Opere de Artă</title>
+</head>
+<body>
+<h1>Operele Artistului</h1>
+<a th:href="@{/artists}">Înapoi la Lista Artiștilor</a>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Titlu</th>
+        <th>Tip</th>
+        <th>Dimensiune</th>
+        <th>Data Creării</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="opera : ${opere}">
+        <td th:text="${opera.operaDeArtaID}"></td>
+        <td th:text="${opera.titlu}"></td>
+        <td th:text="${opera.tip}"></td>
+        <td th:text="${opera.dimensiune}"></td>
+        <td th:text="${#dates.format(opera.dataCreare, 'yyyy-MM-dd')}"></td>
+    </tr>
+    </tbody>
+</table>
+<p th:if="${#lists.isEmpty(opere)}">Nu există opere asociate acestui artist.</p>
+</body>
+</html>

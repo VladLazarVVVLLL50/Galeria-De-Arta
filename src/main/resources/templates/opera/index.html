@@ -1,0 +1,46 @@
+<!-- index.html: Lista tuturor operelor de artă -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista Operelor de Artă</title>
+</head>
+<body>
+<h1>Lista Operelor de Artă</h1>
+<a th:href="@{/opere/new}">Adaugă o operă de artă nouă</a>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Titlu</th>
+        <th>Tip</th>
+        <th>Dimensiune</th>
+        <th>Data Creării</th>
+        <th>Artisti</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="opera : ${opere}">
+        <td th:text="${opera.operaDeArtaID}"></td>
+        <td th:text="${opera.titlu}"></td>
+        <td th:text="${opera.tip}"></td>
+        <td th:text="${opera.dimensiune}"></td>
+        <td th:text="${#dates.format(opera.dataCreare, 'yyyy-MM-dd')}"></td>
+        <td>
+            <ul>
+                <li th:each="artist : ${artistsByOpera[opera.operaDeArtaID]}">
+                    <a th:href="@{/artists/{id}(id=${artist.artistID})}" th:text="${artist.nume + ' ' + artist.prenume}"></a>
+                </li>
+            </ul>
+        </td>
+
+        <td>
+            <a th:href="@{/opere/edit/{id}(id=${opera.operaDeArtaID})}">Editează</a> |
+            <a th:href="@{/opere/delete/{id}(id=${opera.operaDeArtaID})}">Șterge</a>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+<a th:href="@{/}">Înapoi la pagina principală</a>
+</body>
+</html>
