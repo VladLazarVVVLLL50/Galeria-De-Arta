@@ -76,8 +76,4 @@ public class ExpozitieController {
         expozitieService.deleteExpozitie(id);
         return "redirect:/expozitii";
     }
-
-
-
-
 }

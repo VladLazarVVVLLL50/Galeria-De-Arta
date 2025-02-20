@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+  <link rel="stylesheet" href="/css/artist/index.css">
   <title>Lista Artiștilor</title>
 </head>
 <body>
@@ -27,11 +28,13 @@
     <td>
       <a th:href="@{/artists/edit/{id}(id=${artist.artistID})}">Editează</a> |
       <a th:href="@{/artists/delete/{id}(id=${artist.artistID})}">Șterge</a> |
-      <a th:href="@{/opere/artist/{id}(id=${artist.artistID})}">Vezi Opere</a>
+      <a th:href="@{/artists/{id}(id=${artist.artistID})}">Detalii</a>
+
     </td>
   </tr>
 
   </tbody>
 </table>
+<a th:href="@{/}">Înapoi la pagina principală</a>
 </body>
 </html>

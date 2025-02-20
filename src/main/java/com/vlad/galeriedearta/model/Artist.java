@@ -1,9 +1,10 @@
 package com.vlad.galeriedearta.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Artist {
-    private int artistID;
+    private Long artistID;
     private String nume;
     private String prenume;
     private Date dataNastere;
@@ -14,9 +15,12 @@ public class Artist {
     private String numarTelefon;
     private String parola;
 
-    public Artist() {}
+    private List<Long> opereDeArta;
 
-    public Artist(int artistID, String nume, String prenume, Date dataNastere, Date dataDeces, String nationalitate, String biografie, String email, String numarTelefon, String parola) {
+    public Artist() {
+    }
+
+    public Artist(Long artistID, String nume, String prenume, Date dataNastere, Date dataDeces, String nationalitate, String biografie, String email, String numarTelefon, String parola, List<Long> opereDeArta) {
         this.artistID = artistID;
         this.nume = nume;
         this.prenume = prenume;
@@ -27,15 +31,15 @@ public class Artist {
         this.email = email;
         this.numarTelefon = numarTelefon;
         this.parola = parola;
+        this.opereDeArta = opereDeArta;
     }
 
 
-
-    public int getArtistID() {
+    public Long getArtistID() {
         return artistID;
     }
 
-    public void setArtistID(int artistID) {
+    public void setArtistID(Long artistID) {
         this.artistID = artistID;
     }
 
@@ -109,5 +113,13 @@ public class Artist {
 
     public void setParola(String parola) {
         this.parola = parola;
+    }
+
+    public List<Long> getOpereDeArta() {
+        return opereDeArta;
+    }
+
+    public void setOpereDeArta(List<Long> opereDeArta) {
+        this.opereDeArta = opereDeArta;
     }
 }

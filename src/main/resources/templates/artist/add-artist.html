@@ -2,21 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Adaugă Artist</title>
+  <link rel="stylesheet" href="/css/artist/add.css">
 </head>
 <body>
 <h1>Adaugă un Artist Nou</h1>
-<form action="#" th:action="@{/artists}" th:object="${artist}" method="post">
+<form th:action="@{/artists/add}" th:object="${artist}" method="post">
   <label for="nume">Nume:</label>
-  <input type="text" id="nume" th:field="*{nume}" /><br/>
+  <input type="text" id="nume" th:field="*{nume}" required /><br/>
 
   <label for="prenume">Prenume:</label>
-  <input type="text" id="prenume" th:field="*{prenume}" /><br/>
+  <input type="text" id="prenume" th:field="*{prenume}" required /><br/>
 
   <label for="dataNastere">Data Nașterii:</label>
-  <input type="date" id="dataNastere" th:field="*{dataNastere}" /><br/>
+  <input type="date" id="dataNastere" th:field="*{dataNastere}" required /><br/>
 
   <label for="nationalitate">Naționalitate:</label>
-  <input type="text" id="nationalitate" th:field="*{nationalitate}" /><br/>
+  <input type="text" id="nationalitate" th:field="*{nationalitate}" required /><br/>
 
   <label for="biografie">Biografie:</label>
   <textarea id="biografie" th:field="*{biografie}"></textarea><br/>
@@ -29,6 +30,16 @@
 
   <label for="parola">Parola:</label>
   <input type="password" id="parola" th:field="*{parola}" /><br/>
+
+  <label for="opere">Opere de Artă:</label>
+  <div id="opere">
+    <div th:each="opera : ${opere}">
+      <input type="checkbox" th:id="'opera-' + ${opera.operaDeArtaID}" th:name="opereIds"
+             th:value="${opera.operaDeArtaID}"
+             th:checked="${artist.opereDeArta?.contains(opera.operaDeArtaID)}" />
+      <label th:for="'opera-' + ${opera.operaDeArtaID}" th:text="${opera.titlu}"></label><br/>
+    </div>
+  </div>
 
   <button type="submit">Salvează</button>
 </form>

@@ -1,37 +1,77 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Editează Artist</title>
+  <title>Edit Artist</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/artist/edit.css}" />
+  <script>
+    function showError(message) {
+      var modal = document.getElementById("errorModal");
+      var modalMessage = document.getElementById("modalMessage");
+      modalMessage.textContent = message;
+      modal.style.display = "block";
+    }
+
+    function closeModal() {
+      var modal = document.getElementById("errorModal");
+      modal.style.display = "none";
+    }
+  </script>
 </head>
 <body>
-<h1>Editează Artist</h1>
-<form action="#" th:action="@{/artists/update/{id}(id=${artist.artistID})}" th:object="${artist}" method="post">
-  <label for="nume">Nume:</label>
-  <input type="text" id="nume" th:field="*{nume}" /><br/>
+<h1>Edit Artist</h1>
+<form th:action="@{/artists/update/{id}(id=${artist.artistID})}" th:object="${artist}" method="post">
+  <label for="nume">Name:</label>
+  <input type="text" id="nume" th:field="*{nume}" required /><br/>
 
-  <label for="prenume">Prenume:</label>
-  <input type="text" id="prenume" th:field="*{prenume}" /><br/>
+  <label for="prenume">Surname:</label>
+  <input type="text" id="prenume" th:field="*{prenume}" required /><br/>
 
-  <label for="dataNastere">Data Nașterii:</label>
-  <input type="date" id="dataNastere" th:field="*{dataNastere}" /><br/>
+  <label for="dataNastere">Date of Birth:</label>
+  <input type="date" id="dataNastere" th:field="*{dataNastere}" required /><br/>
 
-  <label for="nationalitate">Naționalitate:</label>
-  <input type="text" id="nationalitate" th:field="*{nationalitate}" /><br/>
+  <label for="nationalitate">Nationality:</label>
+  <input type="text" id="nationalitate" th:field="*{nationalitate}" required /><br/>
 
-  <label for="biografie">Biografie:</label>
+  <label for="biografie">Biography:</label>
   <textarea id="biografie" th:field="*{biografie}"></textarea><br/>
 
   <label for="email">Email:</label>
   <input type="email" id="email" th:field="*{email}" /><br/>
 
-  <label for="numarTelefon">Număr Telefon:</label>
+  <label for="numarTelefon">Phone Number:</label>
   <input type="text" id="numarTelefon" th:field="*{numarTelefon}" /><br/>
 
-  <label for="parola">Parola:</label>
+  <label for="parola">Password:</label>
   <input type="password" id="parola" th:field="*{parola}" /><br/>
 
-  <button type="submit">Actualizează</button>
+  <label for="opere">Opere de Artă:</label>
+  <div id="opere">
+    <div th:each="opera : ${opereDisponibile}">
+      <input type="checkbox" id="opera" th:id="'opera-' + ${opera.operaDeArtaID}" th:name="opere"
+             th:value="${opera.operaDeArtaID}"
+             th:checked="${selectedOpere.contains(opera.operaDeArtaID)}" />
+      <label th:for="'opera-' + ${opera.operaDeArtaID}" th:text="${opera.titlu}"></label><br/>
+    </div>
+  </div>
+
+  <button type="submit">Update</button>
 </form>
 <a href="/artists">Înapoi la listă</a>
+
+<!-- Modal for error message -->
+<div id="errorModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <p id="modalMessage" th:text="${error}"></p>
+  </div>
+</div>
+
+<!-- Display error message if present -->
+<div th:if="${error}">
+  <script th:inline="javascript">
+    showError([[${error}]]);
+  </script>
+</div>
+
 </body>
 </html>

@@ -1,19 +1,20 @@
 package com.vlad.galeriedearta.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Expozitie {
     private int expozitieID;
     private String nume;
     private String descriere;
-    private Date dataInceput;
-    private Date dataSfarsit;
+    private LocalDate dataInceput;
+    private LocalDate dataSfarsit;
     private int locatieID; // ID-ul locației unde se desfășoară expoziția
     private int curatorID; // ID-ul curatorului responsabil pentru expoziție
 
-    public Expozitie() {}
+    public Expozitie() {
+    }
 
-    public Expozitie(int expozitieID, String nume, String descriere, Date dataInceput, Date dataSfarsit, int locatieID, int curatorID) {
+    public Expozitie(int expozitieID, String nume, String descriere, LocalDate dataInceput, LocalDate dataSfarsit, int locatieID, int curatorID) {
         this.expozitieID = expozitieID;
         this.nume = nume;
         this.descriere = descriere;
@@ -48,19 +49,19 @@ public class Expozitie {
         this.descriere = descriere;
     }
 
-    public Date getDataInceput() {
+    public LocalDate getDataInceput() {
         return dataInceput;
     }
 
-    public void setDataInceput(Date dataInceput) {
+    public void setDataInceput(LocalDate dataInceput) {
         this.dataInceput = dataInceput;
     }
 
-    public Date getDataSfarsit() {
+    public LocalDate getDataSfarsit() {
         return dataSfarsit;
     }
 
-    public void setDataSfarsit(Date dataSfarsit) {
+    public void setDataSfarsit(LocalDate dataSfarsit) {
         this.dataSfarsit = dataSfarsit;
     }
 

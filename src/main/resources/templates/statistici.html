@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Statistici</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/statistici/statistici.css}" />
+</head>
+<body>
+<h1>Statistici</h1>
+
+<h2>Numar Total de Artisti</h2>
+<p th:text="'Numar Total: ' + ${statistica1[0].totalArtists}"></p>
+
+<h2>Varsta medie a unui artist:</h2>
+<p th:text="'Medie Varsta: ' + ${statistica2[0].averageAge}"></p>
+
+<h2>Artisti dupa Nationalitate</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Nattionalitate</th>
+        <th>Numar</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row : ${statistica3}">
+        <td th:text="${row.nationalitate}"></td>
+        <td th:text="${row.count}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Numarul de Opere de Arta per Artist</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Nume Artist</th>
+        <th>Numar de Opere de Arta</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row : ${statistica4}">
+        <td th:text="${row.nume}"></td>
+        <td th:text="${row.opereCount}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Artistul cu cele mai multe Opere de Arta</h2>
+<p th:each="row : ${artistWithMostArtworks}" th:text="'Artist: ' + ${row.nume} + ', Opere de Arta: ' + ${row.opereCount}"></p>
+
+<h2>Expozitiile cu cele mai multe Opere de Arta</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Nume Expozitie</th>
+        <th>Numarul de Opere de Arta</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row : ${exhibitionsWithMostArtworks}">
+        <td th:text="${row.nume}"></td>
+        <td th:text="${row.opereCount}"></td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+<h2>Total Opere de Artă per Artist</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Nume</th>
+        <th>Prenume</th>
+        <th>Număr Opere</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row : ${totalArtworksPerArtist}">
+        <td th:text="${row.nume}"></td>
+        <td th:text="${row.prenume}"></td>
+        <td th:text="${row.opereCount}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Artiști care au creat Picturi</h2>
+<ul>
+    <li th:each="row : ${artistsByArtworkType}" th:text="${row.nume} + ' ' + ${row.prenume}"></li>
+</ul>
+
+<h2>Cea mai Noua Operă de Artă per Artist</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Nume</th>
+        <th>Prenume</th>
+        <th>Cea mai Noua Operă</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row : ${mostRecentArtworkByArtist}">
+        <td th:text="${row.nume}"></td>
+        <td th:text="${row.prenume}"></td>
+        <td th:text="${row.newestArtwork}"></td>
+
+    </tr>
+    </tbody>
+</table>
+
+<h2>Data celei mai vechi Opere de Arta per Artist</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Nume</th>
+        <th>Prenume</th>
+        <th>Data celei mai vechi Opere de Arta</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row : ${oldestArtworkByArtist}">
+        <td th:text="${row.nume}"></td>
+        <td th:text="${row.prenume}"></td>
+        <td th:text="${row.oldestArtwork}"></td>
+    </tr>
+    </tbody>
+</table>
+
+
+<h2>Curatorul cu cele mai multe Expozitii</h2>
+<p th:each="row : ${curatorWithMostExhibitions}" th:text="'Curator: ' + ${row.nume} + ', Expozitii: ' + ${row.expozitiiCount}"></p>
+
+<a th:href="@{/}">Înapoi la pagina principală</a>
+</body>
+</html>

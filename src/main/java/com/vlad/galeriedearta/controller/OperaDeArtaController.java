@@ -1,20 +1,21 @@
 package com.vlad.galeriedearta.controller;
-import java.util.HashMap;
-import java.util.Map;
+
 import com.vlad.galeriedearta.model.Artist;
 import com.vlad.galeriedearta.model.OperaDeArta;
-import com.vlad.galeriedearta.service.OperaDeArtaService;
 import com.vlad.galeriedearta.service.ArtistService;
+import com.vlad.galeriedearta.service.OperaDeArtaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/opere")
@@ -42,7 +43,7 @@ public class OperaDeArtaController {
     public String getAllOpereDeArta(Model model) {
         List<OperaDeArta> opere = operaDeArtaService.getAllOpereDeArta();
 
-        Map<Integer, List<Artist>> artistsByOpera = new HashMap<>();
+        Map<Long, List<Artist>> artistsByOpera = new HashMap<>();
         for (OperaDeArta opera : opere) {
             List<Artist> artists = artistService.getArtistsByOperaId(opera.getOperaDeArtaID());
             artistsByOpera.put(opera.getOperaDeArtaID(), artists);
@@ -57,6 +58,7 @@ public class OperaDeArtaController {
     @GetMapping("/new")
     public String showAddOperaForm(Model model) {
         model.addAttribute("opera", new OperaDeArta());
+        model.addAttribute("artisti", artistService.getAllArtists());
         return "opera/add-opera";
     }
 
@@ -69,15 +71,16 @@ public class OperaDeArtaController {
 
     // Afișează formularul pentru a edita o operă de artă existentă
     @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable("id") int id, Model model) {
+    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
         OperaDeArta operaDeArta = operaDeArtaService.getOperaDeArtaById(id);
         model.addAttribute("opera", operaDeArta);
+        model.addAttribute("artisti", artistService.getAllArtists());
         return "opera/edit-opera";
     }
 
     // Actualizează o operă de artă existentă
     @PostMapping("/update/{id}")
-    public String updateOperaDeArta(@PathVariable("id") int id, @ModelAttribute("opera") OperaDeArta operaDeArta) {
+    public String updateOperaDeArta(@PathVariable("id") Long id, @ModelAttribute("opera") OperaDeArta operaDeArta) {
         operaDeArta.setOperaDeArtaID(id);
         operaDeArtaService.updateOperaDeArta(operaDeArta);
         return "redirect:/opere";
@@ -85,14 +88,14 @@ public class OperaDeArtaController {
 
     // Șterge o operă de artă după ID
     @GetMapping("/delete/{id}")
-    public String deleteOperaDeArta(@PathVariable("id") int id) {
+    public String deleteOperaDeArta(@PathVariable("id") Long id) {
         operaDeArtaService.deleteOperaDeArta(id);
         return "redirect:/opere";
     }
 
     // Afișează operele asociate unui artist
     @GetMapping("/artist/{id}")
-    public String getOpereByArtist(@PathVariable("id") int artistID, Model model) {
+    public String getOpereByArtist(@PathVariable("id") Long artistID, Model model) {
         List<OperaDeArta> opere = operaDeArtaService.getOpereByArtistId(artistID);
         model.addAttribute("opere", opere);
         model.addAttribute("artistID", artistID); // Trimitem și ID-ul artistului pentru context
@@ -100,7 +103,4 @@ public class OperaDeArtaController {
 
         return "opera/artist";
     }
-
-
-
 }

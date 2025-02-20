@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -44,7 +45,7 @@ public class ExpozitieDAO {
     public void updateExpozitie(Expozitie expozitie) {
         String sql = "UPDATE expozitie SET nume = ?, descriere = ?, dataInceput = ?, dataSfarsit = ?, locatieID = ?, curatorID = ? WHERE expozitieID = ?";
         jdbcTemplate.update(sql, expozitie.getNume(), expozitie.getDescriere(),
-                expozitie.getDataInceput(), expozitie.getDataSfarsit(),
+                Date.valueOf(expozitie.getDataInceput()), Date.valueOf(expozitie.getDataSfarsit()),
                 expozitie.getLocatieID(), expozitie.getCuratorID(), expozitie.getExpozitieID());
     }
 
@@ -54,10 +55,6 @@ public class ExpozitieDAO {
         jdbcTemplate.update(sql, id);
     }
 
-
-
-
-
     // Custom RowMapper for mapping ResultSet to Expozitie object
     private static class ExpozitieRowMapper implements RowMapper<Expozitie> {
         @Override
@@ -66,8 +63,8 @@ public class ExpozitieDAO {
             expozitie.setExpozitieID(rs.getInt("expozitieID"));
             expozitie.setNume(rs.getString("nume"));
             expozitie.setDescriere(rs.getString("descriere"));
-            expozitie.setDataInceput(rs.getDate("dataInceput"));
-            expozitie.setDataSfarsit(rs.getDate("dataSfarsit"));
+            expozitie.setDataInceput(rs.getDate("dataInceput").toLocalDate());
+            expozitie.setDataSfarsit(rs.getDate("dataSfarsit").toLocalDate());
             expozitie.setLocatieID(rs.getInt("locatieID"));
             expozitie.setCuratorID(rs.getInt("curatorID"));
             return expozitie;

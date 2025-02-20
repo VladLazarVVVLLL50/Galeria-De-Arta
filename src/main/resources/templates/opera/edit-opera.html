@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editează Operă de Artă</title>
+    <link rel="stylesheet" href="/css/opera/edit.css">
+</head>
+<body>
+<h1>Editează Operă de Artă</h1>
+<form action="#" th:action="@{/opere/update/{id}(id=${opera.operaDeArtaID})}" th:object="${opera}" method="post">
+    <label for="titlu">Titlu:</label>
+    <input type="text" id="titlu" th:field="*{titlu}" required><br><br>
+
+    <label for="tip">Tip:</label>
+    <select id="tip" name="tip" th:field="*{tip}">
+        <option value="pictura">Pictura</option>
+        <option value="sculptura">Sculptura</option>
+        <option value="fotografie">Fotografie</option>
+        <option value="alt_tip">Alt Tip</option>
+    </select><br><br>
+
+    <label for="dimensiune">Dimensiune:</label>
+    <input type="text" id="dimensiune" th:field="*{dimensiune}" required><br><br>
+
+    <label for="dataCreare">Data Creării:</label>
+    <input type="date" id="dataCreare" th:field="*{dataCreare}" required><br><br>
+
+    <label for="artisti">Artiști:</label>
+    <select id="artisti" th:field="*{artisti}" multiple>
+        <option th:each="artist : ${artisti}" th:value="${artist.artistID}" th:text="${artist.nume + ' ' + artist.prenume}"></option>
+    </select><br><br>
+
+    <button type="submit">Actualizează</button>
+</form>
+<a th:href="@{/opere}">Înapoi la lista operelor de artă</a>
+</body>
+</html>
